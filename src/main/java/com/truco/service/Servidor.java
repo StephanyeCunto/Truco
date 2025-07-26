@@ -1,6 +1,5 @@
 package com.truco.service;
 
-import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
@@ -18,4 +17,8 @@ public class Servidor extends UnicastRemoteObject implements InterfaceMesa{
     public List<Carta> getMao(){
         return baralho.distribuirMao();
     } 
+
+    public void jogarCarta(Carta carta){
+        System.out.println("Carta jogada: "+ carta.getValor()+" "+carta.getNaipe());
+    }
 }

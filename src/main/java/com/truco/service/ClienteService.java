@@ -1,7 +1,6 @@
 package com.truco.service;
 
-import java.rmi.Naming;
-import java.rmi.RemoteException;
+import java.rmi.*;
 import java.util.List;
 
 import com.truco.model.Carta;
@@ -11,7 +10,6 @@ public class ClienteService {
 
     public ClienteService(String rmi){
         try{
-
             service = (InterfaceMesa) Naming.lookup(rmi);
         }catch (RemoteException e) {
             System.err.println("ServiceClient RemoteException: " + e.getMessage());
@@ -23,7 +21,11 @@ public class ClienteService {
 
     }
 
-    public  List<Carta> getMao() throws RemoteException{
+    public List<Carta> getMao() throws RemoteException{
         return service.getMao();
+    }
+
+    public void jogarCarta(Carta carta) throws RemoteException{
+        service.jogarCarta(carta);
     }
 }

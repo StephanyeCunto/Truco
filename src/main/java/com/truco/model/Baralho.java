@@ -10,21 +10,25 @@ public class Baralho {
     public Baralho(){
         for(Naipe naipe : Naipe.values()){
             for (ValorCarta valor : ValorCarta.values()){
-                if(valor == ValorCarta.SETE) {
-                    if(naipe == Naipe.COPAS || naipe == Naipe.ESPADAS) cartas.add(new Carta(naipe, valor));
-                }
-                else if(valor == ValorCarta.QUATRO) {
-                    if(naipe == Naipe.PAUS) cartas.add(new Carta(naipe, valor));
-                }
-                else cartas.add(new Carta(naipe, valor));
+                if(checkCarta(naipe,valor)) cartas.add(new Carta(naipe, valor));
             }
         }
         Collections.shuffle(cartas);
     }
 
+    private boolean checkCarta(Naipe naipe, ValorCarta valor){
+        if(valor == ValorCarta.QUATRO && naipe != Naipe.PAUS) return false;
+        else if(valor == ValorCarta.AESPADAS && naipe != Naipe.ESPADAS) return false;
+        else if(valor == ValorCarta.SETECOPAS && naipe != Naipe.COPAS) return false;
+        else if(valor == ValorCarta.SETEOUROS && naipe != Naipe.OUROS) return false;
+        else if(valor == ValorCarta.A && naipe == Naipe.ESPADAS) return false;
+        else return true;
+    }
+
     public List<Carta> distribuirMao() {
         List<Carta> mao = new ArrayList<>();
         do{
+            mao.removeAll(mao);
             for (int i = 0; i < 3; i++) {
                 mao.add(cartas.get(0));
                 cartas.remove(0);
@@ -36,9 +40,7 @@ public class Baralho {
 
     private boolean checkFamilia(List<Carta> mao){
         for(Carta carta : mao){
-            if(carta.getValor() != ValorCarta.A && carta.getValor() != ValorCarta.K && carta.getValor() != ValorCarta.J && carta.getValor() != ValorCarta.Q){
-                return false;
-            }
+            if(carta.getValor() != ValorCarta.A && carta.getValor() != ValorCarta.K && carta.getValor() != ValorCarta.J && carta.getValor() != ValorCarta.Q) return false;
         }
         return true;
     }

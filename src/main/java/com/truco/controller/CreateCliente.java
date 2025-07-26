@@ -7,21 +7,32 @@ import com.truco.model.Cliente;
 import com.truco.service.*;
 
 public class CreateCliente {
-    public CreateCliente(){
-        Cliente cliente = new Cliente("192.168.1.8", "Ste", 1099);
+    ClienteService clienteService;
 
-        initClient(cliente);
+    List<Carta> mao;
+
+    public CreateCliente(){
+        Cliente cliente = new Cliente("192.168.1.7", "Ste", 1099);
+        clienteService = new  ClienteService(cliente.getUri());
     }
 
-    private void initClient(Cliente cliente){
-            ClienteService clienteService = new  ClienteService(cliente.getUri());
+    public void getMao(){
         try{
-            List<Carta> mao = clienteService.getMao();
+            mao = clienteService.getMao();
             for (Carta c : mao) {
-                System.out.println("Valor: "+c.getValor()+" Naipe: "+ c.getNaipe());
+                System.out.println("Minhas cartas: "+c.getValor()+" "+c.getNaipe());
             }
         }catch (Exception e) {
             System.err.println("Client erro: "+ e);
         }
+    }
+
+    public void jogarCarta(Carta carta){
+        try{
+            clienteService.jogarCarta(carta);
+        }catch (Exception e) {
+            System.err.println("Client erro: "+ e);
+        }
+        mao.remove(carta);
     }
 }
