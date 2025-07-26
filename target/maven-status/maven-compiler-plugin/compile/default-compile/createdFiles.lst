@@ -1,7 +1,7 @@
+com/truco/model/ValorCarta.class
+com/truco/model/Baralho.class
+com/truco/model/Naipe.class
 com/truco/model/Carta.class
 com/truco/Main.class
 module-info.class
-com/truco/model/ValorCarta.class
 com/truco/service/Servidor.class
-com/truco/model/Baralho.class
-com/truco/model/Naipe.class
