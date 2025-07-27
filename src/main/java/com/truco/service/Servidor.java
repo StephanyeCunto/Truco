@@ -2,23 +2,37 @@ package com.truco.service;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.List;
+import java.util.*;
 
 import com.truco.model.*;
 
 public class Servidor extends UnicastRemoteObject implements InterfaceMesa{
-    private Baralho baralho;
+    private Map<String, InterfaceCliente> clientes = new HashMap<>();
 
-   public Servidor() throws RemoteException {
+    private Baralho baralho;
+    private HashMap<Carta,String> cartasJogadas = new HashMap<>();
+
+    public Servidor() throws RemoteException {
         super(); 
         baralho = new Baralho();
     }
 
-    public List<Carta> getMao(){
-        return baralho.distribuirMao();
+    @Override
+    public void getMao(String name) throws RemoteException{
+        InterfaceCliente cliente = clientes.get(name);
+        cliente.getMao(baralho.distribuirMao());
     } 
 
-    public void jogarCarta(Carta carta){
-        System.out.println("Carta jogada: "+ carta.getValor()+" "+carta.getNaipe());
+    @Override
+    public void jogarCarta(Carta carta, String name){
+        InterfaceCliente cliente = clientes.get(name);
+        cartasJogadas.put(carta,name);
+        System.out.println(name+" jogou a carta: "+ carta.getCarta());
+    }   
+
+    @Override
+    public void registrarCliente(String nome, InterfaceCliente cliente) throws RemoteException {
+        clientes.put(nome, cliente);
+        System.out.println("Cliente registrado: " + nome);
     }
 }

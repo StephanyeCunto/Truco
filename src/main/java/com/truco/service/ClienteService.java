@@ -4,11 +4,12 @@ import java.rmi.*;
 import java.util.List;
 
 import com.truco.model.Carta;
+import com.truco.model.Cliente;
 
 public class ClienteService {
     private InterfaceMesa service;
 
-    public ClienteService(String rmi){
+    public ClienteService(String rmi, String nome){
         try{
             service = (InterfaceMesa) Naming.lookup(rmi);
         }catch (RemoteException e) {
@@ -21,11 +22,7 @@ public class ClienteService {
 
     }
 
-    public List<Carta> getMao() throws RemoteException{
-        return service.getMao();
-    }
-
-    public void jogarCarta(Carta carta) throws RemoteException{
-        service.jogarCarta(carta);
+    public void jogarCarta(Carta carta, String name) throws RemoteException{
+        service.jogarCarta(carta,name);
     }
 }

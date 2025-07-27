@@ -12,8 +12,6 @@ public class CreateServidor {
             LocateRegistry.createRegistry(1099);
             System.setProperty("java.rmi.serve.hostname","192.168.1.7");
 
-            System.out.println("RMI Registry iniciado na porta 1099");
-
             InterfaceMesa mesa = new Servidor();
             Naming.rebind("Ste", mesa);
             System.out.println("Servidor registrado como 'Ste'");

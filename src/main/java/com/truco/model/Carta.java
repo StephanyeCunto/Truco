@@ -15,4 +15,8 @@ public class Carta implements Serializable{
     public int getValorNumerico(){
         return valor.getValorNumerico();
     }
+
+    public String getCarta(){
+        return naipe+" "+valor;
+    }
 }

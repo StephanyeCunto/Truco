@@ -6,7 +6,9 @@ import java.util.List;
 import com.truco.model.Carta;
 
 public interface InterfaceMesa extends Remote {
-    List<Carta> getMao() throws RemoteException;
+   void getMao(String name) throws RemoteException;
 
-    void jogarCarta(Carta carta) throws RemoteException;
+    void jogarCarta(Carta carta, String name) throws RemoteException;
+
+    void registrarCliente(String nome, InterfaceCliente cliente) throws RemoteException;
 }
