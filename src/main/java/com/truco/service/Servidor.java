@@ -25,7 +25,6 @@ public class Servidor extends UnicastRemoteObject implements InterfaceMesa{
 
     @Override
     public void jogarCarta(Carta carta, String name){
-        InterfaceCliente cliente = clientes.get(name);
         cartasJogadas.put(carta,name);
         System.out.println(name+" jogou a carta: "+ carta.getCarta());
     }   
@@ -34,5 +33,23 @@ public class Servidor extends UnicastRemoteObject implements InterfaceMesa{
     public void registrarCliente(String nome, InterfaceCliente cliente) throws RemoteException {
         clientes.put(nome, cliente);
         System.out.println("Cliente registrado: " + nome);
+        if(clientes.size()>= 2){
+            escolheJogador();
+        }
+    }
+
+    public void escolheJogador() throws RemoteException{
+        for(Map.Entry<String, InterfaceCliente> entry : clientes.entrySet()){
+            System.out.println("Vez do: "+ entry.getKey());
+            getMao(entry.getKey());
+            entry.getValue().jogarCarta();
+        }
+
+        HashMap<Carta,String> ganhador = new HashMap<>();
+        for(Map.Entry<Carta,String> entry : cartasJogadas.entrySet()){
+            System.out.println("Carta Jogada: "+entry.getKey().getValor()+" "+ entry.getKey().getNaipe());
+            if(ganhador == null) ganhador.put(entry.getKey(), entry.getValue());
+            else if((int) ganhador.entrySet().iterator().next().getKey().getValorNumerico() < (int) entry.getKey().getValorNumerico())
+        }
     }
 }

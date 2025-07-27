@@ -8,4 +8,6 @@ import com.truco.model.Carta;
 
 public interface InterfaceCliente extends Remote{
     void getMao(List<Carta> mao) throws RemoteException;
+
+    Carta jogarCarta()throws RemoteException;
 }

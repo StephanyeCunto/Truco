@@ -1,10 +1,8 @@
 package com.truco.service;
 
 import java.rmi.*;
-import java.util.List;
 
 import com.truco.model.Carta;
-import com.truco.model.Cliente;
 
 public class ClienteService {
     private InterfaceMesa service;
@@ -20,6 +18,14 @@ public class ClienteService {
             e.printStackTrace();
         }
 
+    }
+
+    public void registrarCliente(String nome, InterfaceCliente cliente) throws RemoteException {
+        service.registrarCliente(nome, cliente);
+    }
+
+    public void solicitarMao(String nome) throws RemoteException {
+        service.getMao(nome);
     }
 
     public void jogarCarta(Carta carta, String name) throws RemoteException{
